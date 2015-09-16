@@ -21,8 +21,6 @@ void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n);
 void mover_player (char tela[ALTURA][LARGURA], player* player,int n);
 void norte_player (char tela[ALTURA][LARGURA], player* player,int n);
 void sul_player (char tela[ALTURA][LARGURA], player* player,int n);
-void oeste_player (char tela[ALTURA][LARGURA], player* player,int n);
-void leste_player (char tela[ALTURA][LARGURA], player* player,int n);
 
 
 #endif

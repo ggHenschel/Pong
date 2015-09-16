@@ -23,3 +23,7 @@ void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n){
     tela[player->y][player->x]=BARRA_R;
     tela[player->y+1][player->x]=BARRA_R;
 }
+
+void mover_player (char tela[ALTURA][LARGURA], player* player,int n);
+void norte_player (char tela[ALTURA][LARGURA], player* player,int n);
+void sul_player (char tela[ALTURA][LARGURA], player* player,int n);
