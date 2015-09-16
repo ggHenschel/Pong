@@ -25,7 +25,7 @@ void inicializa (char tela[ALTURA][LARGURA], Ponto* p) {
   tela[i][j] = PONTO;
   p->x = i;
   p->y = j;
-  p->d = SOBE;
+  p->d = NORTE;
 }
 
 void desenha (char tela[ALTURA][LARGURA]) {
@@ -39,63 +39,63 @@ void desenha (char tela[ALTURA][LARGURA]) {
 }
 
 void mover (char tela[ALTURA][LARGURA], Ponto* p) {
-  if (p->d == SOBE) {
+  if (p->d == NORTE) {
     if (p->x > 1) {
-      sobe(tela, p);
+      norte(tela, p);
     }
     else {
-      p->d = DESCE;
-      desce(tela, p);
+      p->d = SUL;
+      sul(tela, p);
     }
   }
-  else if (p->d == DESCE) {
+  else if (p->d == SUL) {
     if (p->x < ALTURA - 2) {
-      desce(tela, p);
+      sul(tela, p);
     }
     else {
-      p->d = SOBE;
-      sobe(tela, p);
+      p->d = NORTE;
+      norte(tela, p);
     }
   }
-  else if (p->d == ESQUERDA) {
+  else if (p->d == OESTE) {
     if (p->y > 1) {
-      esquerda(tela, p);
+      oeste(tela, p);
     }
     else {
-      p->d = DIREITA;
-      direita(tela, p);
+      p->d = LESTE;
+      leste(tela, p);
     }
   }
-  else if (p->d == DIREITA) {
+  else if (p->d == LESTE) {
     if (p->y < LARGURA - 2) {
-      direita(tela, p);
+      leste(tela, p);
     }
     else {
-      p->d = ESQUERDA;
-      esquerda(tela, p);
+      p->d = OESTE;
+      leste(tela, p);
     }
   }
 }
 
-void sobe (char tela[ALTURA][LARGURA], Ponto* p) {
+void norte (char tela[ALTURA][LARGURA], Ponto* p) {
   tela[p->x][p->y] = ESPACO;
   p->x--;
   tela[p->x][p->y] = PONTO;
 }
 
-void desce (char tela[ALTURA][LARGURA], Ponto* p) {
+void sul (char tela[ALTURA][LARGURA], Ponto* p) {
   tela[p->x][p->y] = ESPACO;
   p->x++;
   tela[p->x][p->y] = PONTO;
 }
 
-void esquerda (char tela[ALTURA][LARGURA], Ponto* p) {
+void oeste (char tela[ALTURA][LARGURA], Ponto* p) {
   tela[p->x][p->y] = ESPACO;
   p->y--;
   tela[p->x][p->y] = PONTO;
 }
 
-void direita (char tela[ALTURA][LARGURA], Ponto* p) {
+void leste (char tela[ALTURA][LARGURA], Ponto* p) {
   tela[p->x][p->y] = ESPACO;
   p->y++;
   tela[p->x][p->y] = PONTO;
@@ -103,15 +103,15 @@ void direita (char tela[ALTURA][LARGURA], Ponto* p) {
 
 void muda_direcao (Ponto* p, int d) {
   if (d == 'a') {
-    p->d = ESQUERDA;
+    p->d = OESTE;
   }
   else if (d == 's') {
-    p->d = DESCE;
+    p->d = SUL;
   }
   else if (d == 'd') {
-    p->d = DIREITA;
+    p->d = LESTE;
   }
   else if (d == 'w') {
-    p->d = SOBE;
+    p->d = NORTE;
   }
 }

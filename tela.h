@@ -3,19 +3,19 @@
 #ifndef TELA_H
 #define TELA_H
 
-#define ALTURA 10
+#define ALTURA 20
 #define LARGURA 50
 
 #define PONTO '.'
 #define ESPACO ' '
 #define TETO_E_CHAO '-'
-#define PAREDE '|'
+#define PAREDE '0'
 
 typedef enum direcao {
-  SOBE,
-  DESCE,
-  ESQUERDA,
-  DIREITA
+    NORTE,
+    SUL,
+    OESTE,
+    LESTE
 } Direcao;
 
 typedef struct ponto {
@@ -26,10 +26,10 @@ typedef struct ponto {
 void inicializa (char tela[ALTURA][LARGURA], Ponto* p);
 void desenha (char tela[ALTURA][LARGURA]);
 void mover (char tela[ALTURA][LARGURA], Ponto* p);
-void sobe (char tela[ALTURA][LARGURA], Ponto* p);
-void desce (char tela[ALTURA][LARGURA], Ponto* p);
-void esquerda (char tela[ALTURA][LARGURA], Ponto* p);
-void direita (char tela[ALTURA][LARGURA], Ponto* p);
+void norte (char tela[ALTURA][LARGURA], Ponto* p);
+void sul (char tela[ALTURA][LARGURA], Ponto* p);
+void oeste (char tela[ALTURA][LARGURA], Ponto* p);
+void leste (char tela[ALTURA][LARGURA], Ponto* p);
 void muda_direcao (Ponto* p, int d);
 
 #endif
