@@ -116,7 +116,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
         }
     }
     else if (p->d == LESTE) {
-        if (p->y < LARGURA - 2 && !((p->y > p2->x-2 && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1))) {
+        if ( p->y < LARGURA - 2 && !((p->y > p2->x-2 && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1))) {
             leste(tela, p);
         }
         else {
@@ -124,12 +124,66 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
                 p->d=NOROESTE;
                 norte(tela,p);
             } else if (p->y == p2->x-1 && p->x == p2->y+1){
-                p->d=SULDESTE;
+                p->d=SULDOESTE;
                 sul(tela, p);
             } else {
-            p->d = OESTE;
+                p->d = OESTE;
             }
             oeste(tela, p);
         }
     }
+    else if (p->d == NORDESTE) {
+        if (p->y < LARGURA - 2 && p->x > 1 &&!((p->y > p2->x-2 && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1))) {
+            leste(tela, p);
+            norte(tela, p);
+        }
+        else {
+            if (p->y == p2->x-1 && p->x == p2->y-1) {
+                p->d=LESTE;
+                leste(tela, p);
+            } else if (p->y == p2->x-1 && p->x == p2->y+1){
+                p->d=NOROESTE;
+                norte(tela, p);
+                oeste(tela, p);
+            } else if(p->x == 1){
+                p->d=SULDESTE;
+                sul(tela, p);
+                leste(tela, p);
+            } else {
+                p->d = SULDOESTE;
+                sul(tela, p);
+                oeste(tela, p);
+                
+            }
+        }
+    }
+    else if (p->d == SULDESTE) {
+        if ( p->y < LARGURA - 2 &&  p->x < ALTURA-2 && !((p->y > p2->x-2 && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1))) {
+            leste(tela, p);
+            sul(tela, p);
+        }
+        else {
+            if (p->y == p2->x-1 && p->x == p2->y-1) {
+                p->d=OESTE;
+                oeste(tela,p);
+            } else if (p->y == p2->x-1 && p->x == p2->y+1){
+                p->d=SULDOESTE;
+                sul(tela, p);
+                oeste(tela, p);
+            } else if (p->x == ALTURA-2) {
+                p->d=NORDESTE;
+                leste(tela, p);
+                norte(tela, p);
+            } else if (p->y == LARGURA-2){
+                p->d=SULDOESTE;
+                oeste(tela, p);
+                sul(tela, p);
+            }
+            else {
+                p->d = OESTE;
+                oeste(tela, p);
+            }
+        }
+    }
+
 }

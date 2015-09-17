@@ -4,12 +4,12 @@
 #define TELA_H
 
 #define ALTURA 20
-#define LARGURA 50
+#define LARGURA 51
 
-#define PONTO '.'
+#define PONTO 'o'
 #define ESPACO ' '
 #define TETO_E_CHAO '-'
-#define PAREDE '0'
+#define PAREDE ' '
 
 typedef enum direcao {
     NORTE,
