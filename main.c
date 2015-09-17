@@ -39,7 +39,7 @@ int main () {
     }
     mover_player(tela, &player1);
     mover_player(tela, &player2);
-    mover(tela, &p);
+    mover_bola_novo(tela, &p, &player2,&player1);
     dorme(20);
   }
 

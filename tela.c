@@ -25,7 +25,7 @@ void inicializa (char tela[ALTURA][LARGURA], Ponto* p) {
   tela[i][j] = PONTO;
   p->x = i;
   p->y = j;
-  p->d = NORTE;
+  p->d = LESTE;
 }
 
 void desenha (char tela[ALTURA][LARGURA]) {

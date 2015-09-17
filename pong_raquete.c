@@ -76,3 +76,60 @@ void muda_direcao_player1 (player* p, int d){
     }
     
 }
+
+void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* p2) {
+    if (p->d == NORTE) {
+        if (p->x > 1) {
+            norte(tela, p);
+        }
+        else {
+            p->d = SUL;
+            sul(tela, p);
+        }
+    }
+    else if (p->d == SUL) {
+        if (p->x < ALTURA - 2) {
+            sul(tela, p);
+        }
+        else {
+            p->d = NORTE;
+            norte(tela, p);
+        }
+    }
+    else if (p->d == OESTE) {
+        if (p->y > 1 && !((p->y < p1->x+2 && p->x == p1->y) || (p->y == p1->x+1 && p->x == p1->y-1) || (p->y == p1->x+1 && p->x == p1->y+1) )) {
+            oeste(tela, p);
+        }
+        else {
+            if (p->y == p1->x+1 && p->x == p1->y-1) {
+                p->d=NORDESTE;
+                norte(tela, p);
+            }
+            else if (p->y == p1->x+1 && p->x == p1->y+1){
+                p->d=SULDESTE;
+                sul(tela, p);
+            } else {
+                p->d = LESTE;
+            }
+            leste(tela, p);
+            
+        }
+    }
+    else if (p->d == LESTE) {
+        if (p->y < LARGURA - 2 && !((p->y > p2->x-2 && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1))) {
+            leste(tela, p);
+        }
+        else {
+            if (p->y == p2->x-1 && p->x == p2->y-1) {
+                p->d=NOROESTE;
+                norte(tela,p);
+            } else if (p->y == p2->x-1 && p->x == p2->y+1){
+                p->d=SULDESTE;
+                sul(tela, p);
+            } else {
+            p->d = OESTE;
+            }
+            oeste(tela, p);
+        }
+    }
+}

@@ -15,7 +15,11 @@ typedef enum direcao {
     NORTE,
     SUL,
     OESTE,
-    LESTE
+    LESTE,
+    NORDESTE,
+    NOROESTE,
+    SULDESTE,
+    SULDOESTE
 } Direcao;
 
 typedef struct ponto {
