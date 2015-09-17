@@ -18,7 +18,7 @@ void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n){
         player->x=2;
     }
     player->y=ALTURA/2;
-    player->d=0;
+    player->d=2;
     tela[player->y-1][player->x]=BARRA_R;
     tela[player->y][player->x]=BARRA_R;
     tela[player->y+1][player->x]=BARRA_R;
@@ -55,4 +55,24 @@ void sul_player (char tela[ALTURA][LARGURA], player* player){
     player->y++;
     tela[player->y+1][player->x] = BARRA_R;
     player->d=2;
+}
+
+void muda_direcao_player2 (player* p, int d){
+    if (d == 's') {
+        p->d = SUL;
+    }
+    else if (d == 'w') {
+        p->d = NORTE;
+    }
+
+}
+
+void muda_direcao_player1 (player* p, int d){
+    if (d == 'l') {
+        p->d = SUL;
+    }
+    else if (d == 'o') {
+        p->d = NORTE;
+    }
+    
 }

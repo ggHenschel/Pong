@@ -34,6 +34,8 @@ int main () {
     if (kbhit()) {
       direcao = getch();
       //muda_direcao(&p, direcao);
+        muda_direcao_player2(&player2, direcao);
+        muda_direcao_player1(&player1, direcao);
     }
     mover_player(tela, &player1);
     mover_player(tela, &player2);

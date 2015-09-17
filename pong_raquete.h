@@ -21,6 +21,8 @@ void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n);
 void mover_player (char tela[ALTURA][LARGURA], player* player);
 void norte_player (char tela[ALTURA][LARGURA], player* player);
 void sul_player (char tela[ALTURA][LARGURA], player* player);
+void muda_direcao_player1 (player* p, int d);
+void muda_direcao_player2 (player* p, int d);
 
 
 #endif
