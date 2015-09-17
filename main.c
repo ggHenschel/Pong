@@ -8,6 +8,8 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <conio.h>
+#define kbhit _kbhit
+#define getch _getch
 #define limpa_tela() system("cls")
 #define dorme(milis) Sleep(milis)
 #else
@@ -32,8 +34,7 @@ int main () {
     limpa_tela();
     desenha(tela);
     if (kbhit()) {
-      direcao = getch();
-      //muda_direcao(&p, direcao);
+		direcao = getch();
         muda_direcao_player2(&player2, direcao);
         muda_direcao_player1(&player1, direcao);
     }
