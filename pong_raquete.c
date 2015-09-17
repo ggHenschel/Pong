@@ -18,12 +18,41 @@ void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n){
         player->x=2;
     }
     player->y=ALTURA/2;
-    player->d=4;
+    player->d=0;
     tela[player->y-1][player->x]=BARRA_R;
     tela[player->y][player->x]=BARRA_R;
     tela[player->y+1][player->x]=BARRA_R;
 }
 
-void mover_player (char tela[ALTURA][LARGURA], player* player,int n);
-void norte_player (char tela[ALTURA][LARGURA], player* player,int n);
-void sul_player (char tela[ALTURA][LARGURA], player* player,int n);
+void mover_player(char tela[ALTURA][LARGURA], player* player){
+    if (player->d == NORTE) {
+        if (player->y > 2) {
+            norte_player(tela, player);
+        }
+        else {
+            player->d = SUL;
+            sul_player(tela, player);
+        }
+    }
+    else if (player->d == SUL) {
+        if (player->y < ALTURA - 3) {
+            sul_player(tela, player);
+        }
+        else {
+            player->d = NORTE;
+            norte_player(tela, player);
+        }
+    }
+}
+void norte_player (char tela[ALTURA][LARGURA], player* player){
+    tela[player->y+1][player->x] = ESPACO;
+    player->y--;
+    tela[player->y-1][player->x] = BARRA_R;
+    player->d=2; //break
+}
+void sul_player (char tela[ALTURA][LARGURA], player* player){
+    tela[player->y-1][player->x] = ESPACO;
+    player->y++;
+    tela[player->y+1][player->x] = BARRA_R;
+    player->d=2;
+}

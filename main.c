@@ -33,8 +33,10 @@ int main () {
     desenha(tela);
     if (kbhit()) {
       direcao = getch();
-      muda_direcao(&p, direcao);
+      //muda_direcao(&p, direcao);
     }
+    mover_player(tela, &player1);
+    mover_player(tela, &player2);
     mover(tela, &p);
     dorme(20);
   }

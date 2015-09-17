@@ -18,9 +18,9 @@ typedef struct barra{
 } player;
 
 void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n);
-void mover_player (char tela[ALTURA][LARGURA], player* player,int n);
-void norte_player (char tela[ALTURA][LARGURA], player* player,int n);
-void sul_player (char tela[ALTURA][LARGURA], player* player,int n);
+void mover_player (char tela[ALTURA][LARGURA], player* player);
+void norte_player (char tela[ALTURA][LARGURA], player* player);
+void sul_player (char tela[ALTURA][LARGURA], player* player);
 
 
 #endif
