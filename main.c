@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "tela.h"
 #include "pong_raquete.h"
-#include "desenhaMenu.h"
+#include "desenha_menu.h"
 
 #ifdef _WIN32
 #include <windows.h>
