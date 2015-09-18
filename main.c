@@ -23,26 +23,28 @@ int main () {
 
     char tela[ALTURA][LARGURA];
     int direcao;
+    int reinicia=1;
     Ponto p;
     player player1, player2;
+    while (reinicia>-1) {
+        inicializa(tela, &p);
+        inicializa_player(tela,&player1, 1);
+        inicializa_player(tela,&player2, 2);
+        reinicia=1;
 
-    inicializa(tela, &p);
-    inicializa_player(tela,&player1, 1);
-    inicializa_player(tela,&player2, 2);
-
-  while (1) {
-    limpa_tela();
-    desenha(tela);
-    if (kbhit()) {
-		direcao = getch();
-        muda_direcao_player2(&player2, direcao);
-        muda_direcao_player1(&player1, direcao);
+        while (reinicia) {
+            limpa_tela();
+            desenha(tela);
+            if (kbhit()) {
+                direcao = getch();
+                muda_direcao_player2(&player2, direcao);
+                muda_direcao_player1(&player1, direcao, &reinicia);
+            }
+            mover_player(tela, &player1);
+            mover_player(tela, &player2);
+            mover_bola_novo(tela, &p, &player2,&player1, &reinicia);
+            dorme(20);
+            }
     }
-    mover_player(tela, &player1);
-    mover_player(tela, &player2);
-    mover_bola_novo(tela, &p, &player2,&player1);
-    dorme(20);
-  }
-
   return 0;
 }

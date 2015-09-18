@@ -67,17 +67,19 @@ void muda_direcao_player2 (player* p, int d){
 
 }
 
-void muda_direcao_player1 (player* p, int d){
+void muda_direcao_player1 (player* p, int d, int* reinicia){
     if (d == 'l') {
         p->d = SUL;
     }
     else if (d == 'o') {
         p->d = NORTE;
+    } else if (d == 27){
+        *reinicia = -1;
     }
     
 }
 
-void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* p2) {
+void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* p2, int* reinicia) {
    /* if (p->d == NORTE) {
         if (p->x > 1) {
             norte(tela, p);
@@ -110,7 +112,9 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
                 p->d=SULDESTE;
                 sul(tela, p);
 				leste(tela, p);
-            } else {
+            } else if(p->y == 1){
+                *reinicia=0;
+                } else {
                 p->d = LESTE;
 				leste(tela, p);
             }
