@@ -22,6 +22,7 @@ void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n){
     tela[player->y-1][player->x]=BARRA_R;
     tela[player->y][player->x]=BARRA_R;
     tela[player->y+1][player->x]=BARRA_R;
+    player->score=0;
 }
 
 void mover_player(char tela[ALTURA][LARGURA], player* player){
@@ -74,7 +75,7 @@ void muda_direcao_player1 (player* p, int d, int* reinicia){
     else if (d == 'o') {
         p->d = NORTE;
     } else if (d == 27){
-        *reinicia = -1;
+        *reinicia = 4;
     }
     
 }
@@ -113,7 +114,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
                 sul(tela, p);
 				leste(tela, p);
             } else if(p->y == 1){
-                *reinicia=0;
+                *reinicia=3;
                 } else {
                 p->d = LESTE;
 				leste(tela, p);
@@ -135,7 +136,10 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
                 p->d=SULDOESTE;
                 sul(tela, p);
 				oeste(tela, p);
-            } else {
+            } else if(p->y==LARGURA-1){
+                reinicia=0;
+            }
+            {
                 p->d = OESTE;
 				oeste(tela, p);
             }

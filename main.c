@@ -23,16 +23,39 @@ int main () {
 
     char tela[ALTURA][LARGURA];
     int direcao;
-    int reinicia=1;
+    int reinicia=-1;
     Ponto p;
     player player1, player2;
-    while (reinicia>-1) {
+    while (reinicia!=0) {
         inicializa(tela, &p);
         inicializa_player(tela,&player1, 1);
         inicializa_player(tela,&player2, 2);
-        reinicia=1;
+        reinicia=-1;
 
-        while (reinicia) {
+        while (1) {
+            if (reinicia==0) {
+                break;
+            }
+            if (reinicia==4) {while (!(getch()==27)) {
+                    ;
+                }
+                reinicia=-1;
+            }
+            if (reinicia==2) {
+                player1.score+=1;
+                break;
+            }
+            if (reinicia==3) {
+                player2.score+=2;
+                break;
+            }
+            if (player2.score==10||player1.score==10) {
+                reinicia=0;
+            }
+            if (reinicia==0) {
+                break;
+            }
+            
             limpa_tela();
             desenha(tela);
             if (kbhit()) {
