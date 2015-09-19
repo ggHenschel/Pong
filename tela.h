@@ -3,13 +3,14 @@
 #ifndef TELA_H
 #define TELA_H
 
-#define ALTURA 20
+#define ALTURA 22
 #define LARGURA 51
 
 #define PONTO 'o'
 #define ESPACO ' '
 #define TETO_E_CHAO '-'
 #define PAREDE ' '
+#define SCORE "Score"
 
 typedef enum direcao {
     NORTE,

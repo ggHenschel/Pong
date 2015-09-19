@@ -23,14 +23,17 @@
 int main () {
 
     char tela[ALTURA][LARGURA];
+	char menu[ALTURA][LARGURA];
     int direcao;
     int reinicia=1;
     Ponto p;
     player player1, player2;
     COORD coord = { 0, 0 };
     
+	menuInic(menu);
     while (reinicia>-1) {
-        menu();
+		limpa_tela();
+		menuDesenha(menu);
 		while (!(getch() == 13));
 		
         inicializa(tela, &p);
