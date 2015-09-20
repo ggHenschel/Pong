@@ -100,7 +100,7 @@ void leste (char tela[ALTURA][LARGURA], Ponto* p) {
   p->y++;
   tela[p->x][p->y] = PONTO;
 }
-
+/*
 void muda_direcao (Ponto* p, int d) {
   if (d == 'a') {
     p->d = OESTE;
@@ -114,4 +114,4 @@ void muda_direcao (Ponto* p, int d) {
   else if (d == 'w') {
     p->d = NORTE;
   }
-}
+}*/
