@@ -8,7 +8,7 @@
 #define PONTO 'o'
 #define ESPACO ' '
 #define TETO_E_CHAO '-'
-#define PAREDE '|'
+#define PAREDE2 '|'
 #define PRESS_START "PRESS ENTER TO START"
 #define CREDITS "By Guilherme Henschel-" \
 				"  and Rafael Teixeira"

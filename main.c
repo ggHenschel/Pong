@@ -11,44 +11,40 @@
 #include <conio.h>
 #define kbhit _kbhit
 #define getch _getch
-#define limpa_tela() SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord)
+#define limpa_tela() SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 0})
 #define dorme(milis) Sleep(milis)
 #else
 #include <unistd.h>
 #include "console.h"
 #define limpa_tela() system("clear")
-#define dorme(milis) usleep(milis * 2000)
+#define dorme(milis) usleep(milis * 1000)
 #endif
 
 int main () {
-
+    
     char tela[ALTURA][LARGURA];
 	char menu[ALTURA][LARGURA];
     int direcao;
-    int reinicia=-1;
+    int reinicia=1;
     Ponto p;
     player player1, player2;
-<<<<<<< HEAD
-    while (reinicia!=0) {
-=======
-    COORD coord = { 0, 0 };
-    
-	menuInic(menu);
+    menuInic(menu);
     while (reinicia>-1) {
-		limpa_tela();
-		menuDesenha(menu);
-		while (!(getch() == 13));
-		
->>>>>>> origin/master
+        limpa_tela();
+        if (reinicia==1) {
+            
+            menuDesenha(menu);
+            while (!(getch() == 13 || getch()==10)){
+                ;
+            }
+            player2.score=0;
+            player1.score=0;
+        }
         inicializa(tela, &p);
         inicializa_player(tela,&player1, 1);
         inicializa_player(tela,&player2, 2);
         reinicia=-1;
-
         while (1) {
-            if (reinicia==0) {
-                break;
-            }
             if (reinicia==4) {while (!(getch()==27)) {
                     ;
                 }
@@ -59,13 +55,11 @@ int main () {
                 break;
             }
             if (reinicia==3) {
-                player2.score+=2;
+                player2.score+=1;
                 break;
             }
             if (player2.score==10||player1.score==10) {
-                reinicia=0;
-            }
-            if (reinicia==0) {
+                reinicia=1;
                 break;
             }
             
@@ -81,6 +75,7 @@ int main () {
             mover_bola_novo(tela, &p, &player2,&player1, &reinicia);
             dorme(60);
             }
+        
     }
   return 0;
 }
