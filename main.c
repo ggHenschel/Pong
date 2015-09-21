@@ -4,13 +4,14 @@
 #include <stdlib.h>
 #include "tela.h"
 #include "pong_raquete.h"
+#include "desenha_menu.h"
 
 #ifdef _WIN32
 #include <windows.h>
 #include <conio.h>
 #define kbhit _kbhit
 #define getch _getch
-#define limpa_tela() system("cls")
+#define limpa_tela() SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord)
 #define dorme(milis) Sleep(milis)
 #else
 #include <unistd.h>
@@ -22,11 +23,23 @@
 int main () {
 
     char tela[ALTURA][LARGURA];
+	char menu[ALTURA][LARGURA];
     int direcao;
     int reinicia=-1;
     Ponto p;
     player player1, player2;
+<<<<<<< HEAD
     while (reinicia!=0) {
+=======
+    COORD coord = { 0, 0 };
+    
+	menuInic(menu);
+    while (reinicia>-1) {
+		limpa_tela();
+		menuDesenha(menu);
+		while (!(getch() == 13));
+		
+>>>>>>> origin/master
         inicializa(tela, &p);
         inicializa_player(tela,&player1, 1);
         inicializa_player(tela,&player2, 2);
@@ -66,7 +79,7 @@ int main () {
             mover_player(tela, &player1);
             mover_player(tela, &player2);
             mover_bola_novo(tela, &p, &player2,&player1, &reinicia);
-            dorme(20);
+            dorme(60);
             }
     }
   return 0;

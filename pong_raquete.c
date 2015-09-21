@@ -27,7 +27,7 @@ void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n){
 
 void mover_player(char tela[ALTURA][LARGURA], player* player){
     if (player->d == NORTE) {
-        if (player->y > 2) {
+        if (player->y > 3) {
             norte_player(tela, player);
         }
         else {
@@ -81,25 +81,7 @@ void muda_direcao_player1 (player* p, int d, int* reinicia){
 }
 
 void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* p2, int* reinicia) {
-   /* if (p->d == NORTE) {
-        if (p->x > 1) {
-            norte(tela, p);
-        }
-        else {
-            p->d = SUL;
-            sul(tela, p);
-        }
-    }
-    else if (p->d == SUL) {
-        if (p->x < ALTURA - 2) {
-            sul(tela, p);
-        }
-        else {
-            p->d = NORTE;
-            norte(tela, p);
-        }
-    }*/
-    if (p->d == OESTE) {
+       if (p->d == OESTE) {
         if (p->y > 1 && !((p->y < p1->x+2 && p->x == p1->y) || (p->y == p1->x+1 && p->x == p1->y-1) || (p->y == p1->x+1 && p->x == p1->y+1) )) {
             oeste(tela, p);
         }
@@ -147,7 +129,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
         }
     }
     else if (p->d == NORDESTE) {
-        if ( p->x > 1 && !((p->y == p2->x && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1) || (p->y-1 == p2->x && p->x == p2->y))) {
+        if ( p->x > 2 && !((p->y == p2->x && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1) || (p->y-1 == p2->x && p->x == p2->y))) {
             leste(tela, p);
             norte(tela, p);
         }
@@ -159,7 +141,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
                 p->d=NOROESTE;
                 norte(tela, p);
                 oeste(tela, p);
-            } else if(p->x == 1){
+            } else if(p->x == 2){
                 p->d=SULDESTE;
                 sul(tela, p);
                 leste(tela, p);
@@ -172,7 +154,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
         }
     }
 	else if (p->d == NOROESTE) {
-		if (p->x > 1 && !((p->y-1 == p1->x && p->x == p1->y) || (p->y == p1->x - 1 && p->x == p1->y - 1) || (p->y == p1->x - 1 && p->x == p1->y + 1) || (p->y == p1->x && p->x == p1->y))) {
+		if (p->x > 2 && !((p->y-1 == p1->x && p->x == p1->y) || (p->y == p1->x - 1 && p->x == p1->y - 1) || (p->y == p1->x - 1 && p->x == p1->y + 1) || (p->y == p1->x && p->x == p1->y))) {
 			norte(tela, p);
 			oeste(tela, p);
 		}
@@ -185,7 +167,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
 				p->d = SULDESTE;
 				sul(tela, p);
 				leste(tela, p);
-			} else if (p->x == p1->x - 1) {
+			} else if (p->x == 2) {
 				p->d = SULDOESTE;
 				sul(tela, p);
 				oeste(tela, p);

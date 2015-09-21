@@ -1,25 +1,34 @@
 /* tela.c */
 
 #include <stdio.h>
+#include <string.h>
 #include "tela.h"
 
+
 void inicializa (char tela[ALTURA][LARGURA], Ponto* p) {
-  int i, j;
-  for (i = 0; i < ALTURA; i += (ALTURA - 1)) {
+  int i, j, k;
+  for (i = 0; i < 1; i++) {
+	  for (j = 0; j < LARGURA; j++) {
+		  tela[i][j] = ESPACO;
+		  if (i == 0 && (j == LARGURA / 6 || j == (LARGURA / 4) * 3)) { for (k = 0; k < 7; k++) tela[0][j + k] = "Score:"[k]; j += k - 1; }
+	  }
+  }
+  for (i = 1; i < ALTURA; i += (ALTURA - 2)) {
     for (j = 0; j < LARGURA; j++) {
       tela[i][j] = TETO_E_CHAO;
     }
   }
-  for (i = 1; i < ALTURA - 1; i++) {
+  for (i = 2; i < ALTURA - 1; i++) {
     for (j = 0; j < LARGURA; j += (LARGURA - 1)) {
       tela[i][j] = PAREDE;
     }
   }
-  for (i = 1; i < ALTURA - 1; i++) {
+  for (i = 2; i < ALTURA - 1; i++) {
     for (j = 1; j < LARGURA - 1; j++) {
       tela[i][j] = ESPACO;
     }
   }
+
   i = ALTURA / 2;
   j = LARGURA / 2;
   tela[i][j] = PONTO;
