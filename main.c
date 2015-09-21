@@ -39,6 +39,7 @@ int main () {
             }
             player2.score=0;
             player1.score=0;
+            rand_direction(&p);
         }
         inicializa(tela, &p);
         inicializa_player(tela,&player1, 1);
@@ -52,10 +53,12 @@ int main () {
             }
             if (reinicia==2) {
                 player1.score+=1;
+                p.d=LESTE;
                 break;
             }
             if (reinicia==3) {
                 player2.score+=1;
+                p.d=OESTE;
                 break;
             }
             if (player2.score==10||player1.score==10) {
