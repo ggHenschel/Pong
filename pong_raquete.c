@@ -34,7 +34,7 @@ void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n){
 
 void mover_player(char tela[ALTURA][LARGURA], player* player){
     if (player->d == NORTE) {
-        if (player->y > 3) {
+        if (player->y > 4) {
             norte_player(tela, player);
         }
         else {
@@ -43,7 +43,7 @@ void mover_player(char tela[ALTURA][LARGURA], player* player){
         }
     }
     else if (player->d == SUL) {
-        if (player->y < ALTURA - 3) {
+        if (player->y < ALTURA - 4) {
             sul_player(tela, player);
         }
         else {
@@ -53,16 +53,20 @@ void mover_player(char tela[ALTURA][LARGURA], player* player){
     }
 }
 void norte_player (char tela[ALTURA][LARGURA], player* player){
-    tela[player->y+1][player->x] = ESPACO;
-    player->y--;
-    tela[player->y-1][player->x] = BARRA_R;
-    player->d=2;
+    if (player->y>3) {
+        tela[player->y+1][player->x] = ESPACO;
+        player->y--;
+        tela[player->y-1][player->x] = BARRA_R;
+        player->d=2;
+    }
 }
 void sul_player (char tela[ALTURA][LARGURA], player* player){
-    tela[player->y-1][player->x] = ESPACO;
-    player->y++;
-    tela[player->y+1][player->x] = BARRA_R;
-    player->d=2;
+    if (player->y<ALTURA-3) {
+        tela[player->y-1][player->x] = ESPACO;
+        player->y++;
+        tela[player->y+1][player->x] = BARRA_R;
+        player->d=2;
+    }
 }
 
 void muda_direcao_player1 (player* p, int d){
@@ -90,7 +94,7 @@ void muda_direcao_player2 (player* p, int d, int* reinicia){
 void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* p2, int* reinicia) {
     /*  Toda colisão da bola com o resto do ambiente está contidod aqui*/
        if (p->d == OESTE) {
-        if (p->y > 1 && !((p->y < p1->x+2 && p->x == p1->y) || (p->y == p1->x+1 && p->x == p1->y-1) || (p->y == p1->x+1 && p->x == p1->y+1) )) {
+        if (p->y > 1 && !((p->y == p1->x+1 && p->x == p1->y) || (p->y == p1->x+1 && p->x == p1->y-1) || (p->y == p1->x+1 && p->x == p1->y+1) )) {
             /*  Essa condição define que a bola irá se mover na direção porém irá mudar de direção caso encontre alguma das raquetes.
                 Se maior que e diferente de uma das 3 posições da raquete, faça... */
             oeste(tela, p);
@@ -121,7 +125,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
         }
     }
     else if (p->d == LESTE) {
-        if ((p->y<LARGURA-2)&&!((p->y > p2->x-2 && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1))) {
+        if ((p->y<LARGURA-2)&&!((p->y == p2->x-1 && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1))) {
             leste(tela, p);
         }
         else {
@@ -143,7 +147,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
         }
     }
     else if (p->d == NORDESTE) {
-        if ( p->x > 2 && (p->y<LARGURA-2) &&!((p->y == p2->x && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1) || (p->y-1 == p2->x && p->x == p2->y))) {
+        if ( p->x > 2 && (p->y<LARGURA-2) &&!((p->y == p2->x-1 && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1) || (p->y-1 == p2->x && p->x == p2->y))) {
             /*  Essa condição define que a bola irá se mover na direção porém irá mudar de direção caso encontre alguma das raquetes.
              Se maior que e diferente de uma das 3 posições da raquete, faça... */
             leste(tela, p);
@@ -175,16 +179,16 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
         }
     }
 	else if (p->d == NOROESTE) {
-		if (p->x > 2 && p->y>1 && !((p->y-1 == p1->x && p->x == p1->y) || (p->y == p1->x - 1 && p->x == p1->y - 1) || (p->y == p1->x - 1 && p->x == p1->y + 1) || (p->y == p1->x && p->x == p1->y))) {
+		if (p->x > 2 && p->y>1 && !((p->y == p1->x+1 && p->x == p1->y) || (p->y == p1->x +1  && p->x == p1->y - 1) || (p->y == p1->x + 1 && p->x == p1->y + 1) || (p->y == p1->x+1 && p->x == p1->y))) {
 			norte(tela, p);
 			oeste(tela, p);
 		}
 		else {
-		if (p->y == p1->x - 1 && p->x == p1->y - 1) {
+		if (p->y == p1->x + 1 && p->x == p1->y - 1) {
 				p->d = NORDESTE;
 				norte(tela, p);
 				leste(tela, p);
-			} else if (p->y == p1->x - 1 && p->x == p1->y + 1) {
+			} else if (p->y == p1->x + 1 && p->x == p1->y + 1) {
 				p->d = SULDESTE;
 				sul(tela, p);
 				leste(tela, p);
@@ -201,7 +205,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
 		}
 	}
 	else if (p->d == SULDESTE) {
-		if (p->x < ALTURA - 2 && p->y<LARGURA-2 && !((p->y == p2->x && p->x == p2->y) || (p->y == p2->x - 1 && p->x == p2->y - 1) || (p->y == p2->x - 1 && p->x == p2->y + 1) || (p->y-1 == p2->x && p->x == p2->y))) {
+		if (p->x < ALTURA - 2 && p->y<LARGURA-2 && !((p->y == p2->x-1 && p->x == p2->y) || (p->y == p2->x - 1 && p->x == p2->y - 1) || (p->y == p2->x - 1 && p->x == p2->y + 1) || (p->y == p2->x-1 && p->x == p2->y))) {
 			leste(tela, p);
 			sul(tela, p);
 		}
@@ -229,16 +233,16 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
 		}
 	}
 	else if (p->d == SULDOESTE) {
-		if (p->x < ALTURA - 2 && p->y>1 && !((p->y == p1-> x && p->x == p1->y) || (p->y == p1->x - 1 && p->x == p1->y - 1) || (p->y == p1->x - 1 && p->x == p1->y + 1) || (p->y - 1 == p1->x && p->x == p1->y))){
+		if (p->x < ALTURA - 2 && p->y>1 && !((p->y == p1-> x+1 && p->x == p1->y) || (p->y == p1->x + 1 && p->x == p1->y - 1) || (p->y == p1->x + 1 && p->x == p1->y + 1) || (p->y - 1 == p1->x && p->x == p1->y))){
 			sul(tela, p);
 			oeste(tela, p);
 		}
 		else {
-			if (p->y == p1->x - 1 && p->x == p1->y + 1) {
+			if (p->y == p1->x + 1 && p->x == p1->y + 1) {
 				p->d = NORDESTE;
 				norte(tela, p);
 				leste(tela, p);
-			} else if (p->y == p1->x - 1 && p->x == p1->y - 1) {
+			} else if (p->y == p1->x + 1 && p->x == p1->y - 1) {
 				p->d = SULDESTE;
 				sul(tela, p);
 				leste(tela, p);
