@@ -1,4 +1,17 @@
 /* main.c */
+// PONTIFICA UNIVERSIDADE CATOLICA DO PARANA
+// ESCOLA POLITECNICA
+// CIENCIA DA COMPUTACAO
+// PROGRAMACAO IMPERATIVA
+//
+// GUILHERME GUSTAVO HENSCHEL
+// RAFAEL DE SOUZA TEIXEIRA
+//
+// IMPLEMENTACAO MULTIPLATAFORMA DE PONG
+// EM C UTILIZANDO RECURSOS GRAFICOS DO
+// TERMINAL OU PROMTCMD
+//
+// CURITIBA 2015
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,57 +41,59 @@ int main () {
     int reinicia=1;
     Ponto p;
     player player1, player2;
-    menuInic(menu);
-    while (reinicia>-1) {
+
+    while (reinicia!=0) {
+    //COORD coord = { 0, 0 };
+    
+        menuInic(menu);
+        player1.score=0;
+        player2.score=0;
+        rand_direction(&p);
         limpa_tela();
-        if (reinicia==1) {
-            
-            menuDesenha(menu);
-            while (!(getch() == 13 || getch()==10)){
-                ;
-            }
-            player2.score=0;
-            player1.score=0;
-            rand_direction(&p);
+        menuDesenha(menu);
+        while (!(getch() == 13 || getch() == 10)){
+            ;
         }
-        inicializa(tela, &p);
-        inicializa_player(tela,&player1, 1);
-        inicializa_player(tela,&player2, 2);
-        reinicia=-1;
-        while (1) {
-            if (reinicia==4) {while (!(getch()==27)) {
-                    ;
+        reinicia=1;
+        while (reinicia>-1) {
+            inicializa(tela, &p, player1.score, player2.score);
+            inicializa_player(tela,&player1, 1);
+            inicializa_player(tela,&player2, 2);
+            reinicia=1;
+            while (1) {
+                if (reinicia==4) {while (!(getch()==27)) {
+                        ;
+                    }
+                    reinicia=1;
                 }
-                reinicia=-1;
+                if (reinicia==2) {
+                    player1.score+=1;
+                    p.d=LESTE;
+                    break;
+                }
+                if (reinicia==3) {
+                    player2.score+=1;
+                    p.d=OESTE;
+                    break;
+                }
+                if (player2.score==10||player1.score==10) {
+                    reinicia=-1;
+                    break;
+                }
+                
+                limpa_tela();
+                desenha(tela);
+                if (kbhit()) {
+                    direcao = getch();
+                    muda_direcao_player1(&player1, direcao);
+                    muda_direcao_player2(&player2, direcao, &reinicia);
+                }
+                mover_player(tela, &player1);
+                mover_player(tela, &player2);
+                mover_bola_novo(tela, &p, &player1,&player2, &reinicia);
+                dorme(60);
+                }
             }
-            if (reinicia==2) {
-                player1.score+=1;
-                p.d=LESTE;
-                break;
-            }
-            if (reinicia==3) {
-                player2.score+=1;
-                p.d=OESTE;
-                break;
-            }
-            if (player2.score==10||player1.score==10) {
-                reinicia=1;
-                break;
-            }
-            
-            limpa_tela();
-            desenha(tela);
-            if (kbhit()) {
-                direcao = getch();
-                muda_direcao_player2(&player2, direcao);
-                muda_direcao_player1(&player1, direcao, &reinicia);
-            }
-            mover_player(tela, &player1);
-            mover_player(tela, &player2);
-            mover_bola_novo(tela, &p, &player2,&player1, &reinicia);
-            dorme(60);
-            }
-        
     }
   return 0;
 }

@@ -1,10 +1,16 @@
+// PONTIFICA UNIVERSIDADE CATOLICA DO PARANA
+// ESCOLA POLITECNICA
+// CIENCIA DA COMPUTACAO
+// PROGRAMACAO IMPERATIVA
 //
-//  pong_raquete.h
-//  Ponto
+// GUILHERME GUSTAVO HENSCHEL
+// RAFAEL DE SOUZA TEIXEIRA
 //
-//  Created by Guilherme Gustavo Henschel on 9/11/15.
-//  Copyright (c) 2015 Learning. All rights reserved.
+// IMPLEMENTACAO MULTIPLATAFORMA DE PONG
+// EM C UTILIZANDO RECURSOS GRAFICOS DO
+// TERMINAL OU PROMTCMD
 //
+// CURITIBA 2015
 
 #ifndef Ponto_pong_raquete_h
 #define Ponto_pong_raquete_h
@@ -22,8 +28,8 @@ void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n);
 void mover_player (char tela[ALTURA][LARGURA], player* player);
 void norte_player (char tela[ALTURA][LARGURA], player* player);
 void sul_player (char tela[ALTURA][LARGURA], player* player);
-void muda_direcao_player1 (player* p, int d, int* reinicia);
-void muda_direcao_player2 (player* p, int d);
+void muda_direcao_player2 (player* p, int d, int* reinicia);
+void muda_direcao_player1 (player* p, int d);
 void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* p2, int* reinicia);
 void rand_direction (Ponto* p);
 
