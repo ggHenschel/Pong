@@ -10,7 +10,12 @@ void inicializa (char tela[ALTURA][LARGURA], Ponto* p) {
   for (i = 0; i < 1; i++) {
 	  for (j = 0; j < LARGURA; j++) {
 		  tela[i][j] = ESPACO;
-		  if (i == 0 && (j == LARGURA / 6 || j == (LARGURA / 4) * 3)) { for (k = 0; k < 7; k++) tela[0][j + k] = "Score:"[k]; j += k - 1; }
+		  if (i == 0 && (j == LARGURA / 6 || j == (LARGURA / 4) * 3)) {
+              for (k = 0; k < 9; k++){
+                  tela[0][j + k] = "Score:"[k];
+              }
+              j += k - 1;
+            }
 	  }
   }
   for (i = 1; i < ALTURA; i += (ALTURA - 2)) {
@@ -34,7 +39,6 @@ void inicializa (char tela[ALTURA][LARGURA], Ponto* p) {
   tela[i][j] = PONTO;
   p->x = i;
   p->y = j;
-  p->d = LESTE;
 }
 
 void desenha (char tela[ALTURA][LARGURA]) {

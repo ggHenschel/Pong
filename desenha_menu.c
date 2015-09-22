@@ -17,7 +17,7 @@ void menuInic(char telaInicial[ALTURA][LARGURA])
 	}
 	for (i = 1; i < ALTURA - 1; i++) {
 		for (j = 0; j < LARGURA; j += (LARGURA - 1)) {
-			telaInicial[i][j] = PAREDE;
+			telaInicial[i][j] = PAREDE2;
 		}
 	}
 	for (i = ALTURA - 3; i < ALTURA - 1; i++) {

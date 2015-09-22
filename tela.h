@@ -9,7 +9,7 @@
 #define PONTO 'o'
 #define ESPACO ' '
 #define TETO_E_CHAO '-'
-#define PAREDE ' '
+#define PAREDE '-'
 #define SCORE "Score"
 
 typedef enum direcao {
