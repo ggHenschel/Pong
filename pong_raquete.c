@@ -1,10 +1,16 @@
+// PONTIFICA UNIVERSIDADE CATOLICA DO PARANA
+// ESCOLA POLITECNICA
+// CIENCIA DA COMPUTACAO
+// PROGRAMACAO IMPERATIVA
 //
-//  pong_raquete.c
-//  Ponto
+// GUILHERME GUSTAVO HENSCHEL
+// RAFAEL DE SOUZA TEIXEIRA
 //
-//  Created by Guilherme Gustavo Henschel on 9/11/15.
-//  Copyright (c) 2015 Learning. All rights reserved.
+// IMPLEMENTACAO MULTIPLATAFORMA DE PONG
+// EM C UTILIZANDO RECURSOS GRAFICOS DO
+// TERMINAL OU PROMTCMD
 //
+// CURITIBA 2015
 
 #include <stdio.h>
 #include "tela.h"
@@ -14,10 +20,10 @@
 
 void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n){
     if (n==1) {
-        player->x=LARGURA-3;
+        player->x=2;
     }
     else{
-        player->x=2;
+        player->x=LARGURA-3;
     }
     player->y=ALTURA/2;
     player->d=2;
@@ -59,7 +65,7 @@ void sul_player (char tela[ALTURA][LARGURA], player* player){
     player->d=2;
 }
 
-void muda_direcao_player2 (player* p, int d){
+void muda_direcao_player1 (player* p, int d){
     if (d == 's') {
         p->d = SUL;
     }
@@ -69,7 +75,7 @@ void muda_direcao_player2 (player* p, int d){
 
 }
 
-void muda_direcao_player1 (player* p, int d, int* reinicia){
+void muda_direcao_player2 (player* p, int d, int* reinicia){
     if (d == 'l') {
         p->d = SUL;
     }
@@ -82,23 +88,31 @@ void muda_direcao_player1 (player* p, int d, int* reinicia){
 }
 
 void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* p2, int* reinicia) {
+    /*  Toda colisão da bola com o resto do ambiente está contidod aqui*/
        if (p->d == OESTE) {
         if (p->y > 1 && !((p->y < p1->x+2 && p->x == p1->y) || (p->y == p1->x+1 && p->x == p1->y-1) || (p->y == p1->x+1 && p->x == p1->y+1) )) {
+            /*  Essa condição define que a bola irá se mover na direção porém irá mudar de direção caso encontre alguma das raquetes.
+                Se maior que e diferente de uma das 3 posições da raquete, faça... */
             oeste(tela, p);
         }
         else {
             if (p->y == p1->x+1 && p->x == p1->y-1) {
+                // Se igual a raquete superior faça...
                 p->d=NORDESTE;
                 norte(tela, p);
 				leste(tela, p);
             }
             else if (p->y == p1->x+1 && p->x == p1->y+1){
+                // Se igual a raquete inferior faça...
                 p->d=SULDESTE;
                 sul(tela, p);
 				leste(tela, p);
             } else if(p->y == 1){
-                *reinicia=2;
+                // Se igual a posição da parede faça...
+                *reinicia=3;
                 } else {
+                // Em qualquer outro caso, mude a direção
+                // Só será chamada quando for igual a raquete média
                 p->d = LESTE;
 				leste(tela, p);
             }
@@ -120,7 +134,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
                 sul(tela, p);
 				oeste(tela, p);
             } else if(p->y==LARGURA-2){
-                *reinicia=3;
+                *reinicia=2;
             } else  {
                 p->d = OESTE;
 				oeste(tela, p);
@@ -130,26 +144,31 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
     }
     else if (p->d == NORDESTE) {
         if ( p->x > 2 && (p->y<LARGURA-2) &&!((p->y == p2->x && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1) || (p->y-1 == p2->x && p->x == p2->y))) {
+            /*  Essa condição define que a bola irá se mover na direção porém irá mudar de direção caso encontre alguma das raquetes.
+             Se maior que e diferente de uma das 3 posições da raquete, faça... */
             leste(tela, p);
             norte(tela, p);
         }
         else {
             if (p->y == p2->x-1 && p->x == p2->y-1) {
-                p->d=LESTE;
-                leste(tela, p);
-            } else if (p->y == p2->x-1 && p->x == p2->y+1){
+                // Se igual a raquete superior faça...
                 p->d=NOROESTE;
                 norte(tela, p);
                 oeste(tela, p);
+            } else if (p->y == p2->x-1 && p->x == p2->y+1){
+                // Se igual a raquete inferior faça...
+                p->d=SULDOESTE;
+                sul(tela, p);
+                oeste(tela, p);
             } else if(p->x == 2){
+                // Se igual ao Teto faça...
                 p->d=SULDESTE;
                 sul(tela, p);
                 leste(tela, p);
             } else if(p->y==LARGURA-2){
-                *reinicia=3;
+                *reinicia=2;
             } else {
-                p->d = SULDOESTE;
-                sul(tela, p);
+                p->d = OESTE;
                 oeste(tela, p);
                 
             }
@@ -174,7 +193,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
 				sul(tela, p);
 				oeste(tela, p);
             } else if (p->y==1){
-                *reinicia=2;
+                *reinicia=3;
             } else {
 				p->d = LESTE;
 				leste(tela, p);
@@ -201,7 +220,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
 				leste(tela, p);
 				norte(tela, p);
             } else if (p->y==LARGURA-2) {
-                *reinicia=3;
+                *reinicia=2;
             }
 			else {
 				p->d = OESTE;
@@ -228,7 +247,7 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
 				norte(tela, p);
 				oeste(tela, p);
             }  else if (p->y==1){
-                *reinicia=2;
+                *reinicia=3;
             }
 			else {
 				p->d = LESTE;
@@ -240,6 +259,8 @@ void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* 
 }
 
 void rand_direction (Ponto* p){
+    /*  Essa função chama uma direção aleatoria
+        entre 6 das 8 direções possiveis para a "bola" */
     srand(time(NULL));
     p->d=rand()%6+2;
 }
