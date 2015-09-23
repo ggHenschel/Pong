@@ -17,6 +17,17 @@
 #include "pong_raquete.h"
 #include <stdlib.h>
 #include <time.h>
+#ifdef _WIN32
+#include <windows.h>
+#define S(x) #x
+#define SX(x) S(x)
+#define som(file) PlaySound(TEXT(SX(x)),NULL,SND_ASYNC)
+#else
+#include <unistd.h>
+#define S(x) #x
+#define SX(x) S(x)
+#define som(file) execlp("afplay","-d",SX(file),NULL)
+#endif
 
 void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n){
     if (n==1) {
@@ -159,6 +170,7 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
                 b->d=SULDESTE;
                 sul(tela, b);
                 leste(tela, b);
+                som("/sounds/parede.wav");
             } else if(b->x==LARGURA-2){
                 *reinicia=2;
             } else {
