@@ -24,7 +24,7 @@
 #include <conio.h>
 #define kbhit _kbhit
 #define getch _getch
-#define limpa_tela() SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 0})
+#define limpa_tela() COORD coord = {0, 0}; SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord)
 #define dorme(milis) Sleep(milis)
 #else
 #include <unistd.h>
@@ -39,16 +39,14 @@ int main () {
 	char menu[ALTURA][LARGURA];
     int direcao;
     int reinicia=1;
-    Ponto p;
+    Bola b;
     player player1, player2;
 
-    while (reinicia!=0) {
-    //COORD coord = { 0, 0 };
-    
+    while (reinicia!=0) {    
         menuInic(menu);
         player1.score=0;
         player2.score=0;
-        rand_direction(&p);
+        rand_direction(&b);
         limpa_tela();
         menuDesenha(menu);
         while (!(getch() == 13 || getch() == 10)){
@@ -56,7 +54,7 @@ int main () {
         }
         reinicia=1;
         while (reinicia>-1) {
-            inicializa(tela, &p, player1.score, player2.score);
+            inicializa(tela, &b, player1.score, player2.score);
             inicializa_player(tela,&player1, 1);
             inicializa_player(tela,&player2, 2);
             reinicia=1;
@@ -68,16 +66,16 @@ int main () {
                 }
                 if (reinicia==2) {
                     player1.score+=1;
-                    p.d=LESTE;
+                    b.d=LESTE;
                     break;
                 }
                 if (reinicia==3) {
                     player2.score+=1;
-                    p.d=OESTE;
+                    b.d=OESTE;
                     break;
                 }
                 if (player2.score==10||player1.score==10) {
-                    reinicia=-1;
+                    reinicia=5;
                     break;
                 }
                 
@@ -90,7 +88,7 @@ int main () {
                 }
                 mover_player(tela, &player1);
                 mover_player(tela, &player2);
-                mover_bola_novo(tela, &p, &player1,&player2, &reinicia);
+                mover_bola(tela, &b, &player1,&player2, &reinicia);
                 dorme(60);
                 }
             }

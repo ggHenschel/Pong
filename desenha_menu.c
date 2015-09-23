@@ -17,7 +17,6 @@
 void menuInic(char telaInicial[ALTURA][LARGURA])
 {
 	int i, j, k = 0, l = 0;
-	char pongAsciiArt[633];
 
 	for (i = 0; i < ALTURA; i++) {
 		for (j = 0; j < LARGURA; j++) {

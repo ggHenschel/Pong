@@ -5,7 +5,7 @@
 #include "tela.h"
 
 
-void inicializa (char tela[ALTURA][LARGURA], Ponto* p, int p1score, int p2score) {
+void inicializa (char tela[ALTURA][LARGURA], Bola* p, int p1score, int p2score) {
   int i, j, k;
   for (i = 0; i < 1; i++) {
 	  for (j = 0; j < LARGURA; j++) {
@@ -50,8 +50,8 @@ void inicializa (char tela[ALTURA][LARGURA], Ponto* p, int p1score, int p2score)
   i = ALTURA / 2;
   j = LARGURA / 2;
   tela[i][j] = PONTO;
-  p->x = i;
-  p->y = j;
+  p->y = i;
+  p->x = j;
 }
 
 void desenha (char tela[ALTURA][LARGURA]) {
@@ -64,9 +64,9 @@ void desenha (char tela[ALTURA][LARGURA]) {
   }
 }
 
-void mover (char tela[ALTURA][LARGURA], Ponto* p) {
+void mover (char tela[ALTURA][LARGURA], Bola* p) {
   if (p->d == NORTE) {
-    if (p->x > 1) {
+    if (p->y > 1) {
       norte(tela, p);
     }
     else {
@@ -75,7 +75,7 @@ void mover (char tela[ALTURA][LARGURA], Ponto* p) {
     }
   }
   else if (p->d == SUL) {
-    if (p->x < ALTURA - 2) {
+    if (p->y < ALTURA - 2) {
       sul(tela, p);
     }
     else {
@@ -84,7 +84,7 @@ void mover (char tela[ALTURA][LARGURA], Ponto* p) {
     }
   }
   else if (p->d == OESTE) {
-    if (p->y > 1) {
+    if (p->x > 1) {
       oeste(tela, p);
     }
     else {
@@ -93,7 +93,7 @@ void mover (char tela[ALTURA][LARGURA], Ponto* p) {
     }
   }
   else if (p->d == LESTE) {
-    if (p->y < LARGURA - 2) {
+    if (p->x < LARGURA - 2) {
       leste(tela, p);
     }
     else {
@@ -103,41 +103,26 @@ void mover (char tela[ALTURA][LARGURA], Ponto* p) {
   }
 }
 
-void norte (char tela[ALTURA][LARGURA], Ponto* p) {
-  tela[p->x][p->y] = ESPACO;
-  p->x--;
-  tela[p->x][p->y] = PONTO;
-}
-
-void sul (char tela[ALTURA][LARGURA], Ponto* p) {
-  tela[p->x][p->y] = ESPACO;
-  p->x++;
-  tela[p->x][p->y] = PONTO;
-}
-
-void oeste (char tela[ALTURA][LARGURA], Ponto* p) {
-  tela[p->x][p->y] = ESPACO;
+void norte (char tela[ALTURA][LARGURA], Bola* p) {
+  tela[p->y][p->x] = ESPACO;
   p->y--;
-  tela[p->x][p->y] = PONTO;
+  tela[p->y][p->x] = PONTO;
 }
 
-void leste (char tela[ALTURA][LARGURA], Ponto* p) {
-  tela[p->x][p->y] = ESPACO;
+void sul (char tela[ALTURA][LARGURA], Bola* p) {
+  tela[p->y][p->x] = ESPACO;
   p->y++;
-  tela[p->x][p->y] = PONTO;
+  tela[p->y][p->x] = PONTO;
 }
-/*
-void muda_direcao (Ponto* p, int d) {
-  if (d == 'a') {
-    p->d = OESTE;
-  }
-  else if (d == 's') {
-    p->d = SUL;
-  }
-  else if (d == 'd') {
-    p->d = LESTE;
-  }
-  else if (d == 'w') {
-    p->d = NORTE;
-  }
-}*/
+
+void oeste (char tela[ALTURA][LARGURA], Bola* p) {
+  tela[p->y][p->x] = ESPACO;
+  p->x--;
+  tela[p->y][p->x] = PONTO;
+}
+
+void leste (char tela[ALTURA][LARGURA], Bola* p) {
+  tela[p->y][p->x] = ESPACO;
+  p->x++;
+  tela[p->y][p->x] = PONTO;
+}

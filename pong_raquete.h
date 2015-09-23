@@ -30,7 +30,7 @@ void norte_player (char tela[ALTURA][LARGURA], player* player);
 void sul_player (char tela[ALTURA][LARGURA], player* player);
 void muda_direcao_player2 (player* p, int d, int* reinicia);
 void muda_direcao_player1 (player* p, int d);
-void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* p2, int* reinicia);
-void rand_direction (Ponto* p);
+void mover_bola (char tela[ALTURA][LARGURA], Bola* p, player* p1, player* p2, int* reinicia);
+void rand_direction (Bola* p);
 
 #endif

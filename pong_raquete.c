@@ -20,51 +20,45 @@
 
 void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n){
     if (n==1) {
-        player->x=2;
+        player->y=2;
     }
     else{
-        player->x=LARGURA-3;
+        player->y=LARGURA-3;
     }
-    player->y=ALTURA/2;
+    player->x=ALTURA/2;
     player->d=2;
-    tela[player->y-1][player->x]=BARRA_R;
-    tela[player->y][player->x]=BARRA_R;
-    tela[player->y+1][player->x]=BARRA_R;
+    tela[player->x-1][player->y]=BARRA_R;
+    tela[player->x][player->y]=BARRA_R;
+    tela[player->x+1][player->y]=BARRA_R;
 }
 
 void mover_player(char tela[ALTURA][LARGURA], player* player){
     if (player->d == NORTE) {
-        if (player->y > 4) {
+        if (player->x > 3) {
             norte_player(tela, player);
-        }
-        else {
-            player->d = SUL;
-            sul_player(tela, player);
         }
     }
     else if (player->d == SUL) {
-        if (player->y < ALTURA - 4) {
+        if (player->x < ALTURA - 3) {
             sul_player(tela, player);
-        }
-        else {
-            player->d = NORTE;
-            norte_player(tela, player);
         }
     }
 }
+
 void norte_player (char tela[ALTURA][LARGURA], player* player){
-    if (player->y>3) {
-        tela[player->y+1][player->x] = ESPACO;
-        player->y--;
-        tela[player->y-1][player->x] = BARRA_R;
+    if (player->x>3) {
+        tela[player->x+1][player->y] = ESPACO;
+        player->x--;
+        tela[player->x-1][player->y] = BARRA_R;
         player->d=2;
     }
 }
+
 void sul_player (char tela[ALTURA][LARGURA], player* player){
-    if (player->y<ALTURA-3) {
-        tela[player->y-1][player->x] = ESPACO;
-        player->y++;
-        tela[player->y+1][player->x] = BARRA_R;
+    if (player->x<ALTURA-3) {
+        tela[player->x-1][player->y] = ESPACO;
+        player->x++;
+        tela[player->x+1][player->y] = BARRA_R;
         player->d=2;
     }
 }
@@ -91,175 +85,175 @@ void muda_direcao_player2 (player* p, int d, int* reinicia){
     
 }
 
-void mover_bola_novo (char tela[ALTURA][LARGURA], Ponto* p, player* p1, player* p2, int* reinicia) {
+void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, int* reinicia) {
     /*  Toda colisão da bola com o resto do ambiente está contidod aqui*/
-       if (p->d == OESTE) {
-        if (p->y > 1 && !((p->y == p1->x+1 && p->x == p1->y) || (p->y == p1->x+1 && p->x == p1->y-1) || (p->y == p1->x+1 && p->x == p1->y+1) )) {
+       if (b->d == OESTE) {
+        if (b->x > 1 && !((b->x == 3 && b->y == p1->x) || (b->x == 3 && b->y == p1->x-1) || (b->x == 3 && b->y == p1->x+1) )) {
             /*  Essa condição define que a bola irá se mover na direção porém irá mudar de direção caso encontre alguma das raquetes.
                 Se maior que e diferente de uma das 3 posições da raquete, faça... */
-            oeste(tela, p);
+            oeste(tela, b);
         }
         else {
-            if (p->y == p1->x+1 && p->x == p1->y-1) {
+            if (b->x == 3 && b->y == p1->x-1) {
                 // Se igual a raquete superior faça...
-                p->d=NORDESTE;
-                norte(tela, p);
-				leste(tela, p);
+                b->d=NORDESTE;
+                norte(tela, b);
+				leste(tela, b);
             }
-            else if (p->y == p1->x+1 && p->x == p1->y+1){
+            else if (b->x == 3 && b->y == p1->x+1){
                 // Se igual a raquete inferior faça...
-                p->d=SULDESTE;
-                sul(tela, p);
-				leste(tela, p);
-            } else if(p->y == 1){
+                b->d=SULDESTE;
+                sul(tela, b);
+				leste(tela, b);
+            } else if(b->x == 1){
                 // Se igual a posição da parede faça...
                 *reinicia=3;
                 } else {
                 // Em qualquer outro caso, mude a direção
                 // Só será chamada quando for igual a raquete média
-                p->d = LESTE;
-				leste(tela, p);
+                b->d = LESTE;
+				leste(tela, b);
             }
             
             
         }
     }
-    else if (p->d == LESTE) {
-        if ((p->y<LARGURA-2)&&!((p->y == p2->x-1 && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1))) {
-            leste(tela, p);
+    else if (b->d == LESTE) {
+        if ((b->x<LARGURA-2)&&!((b->x == LARGURA-4 && b->y == p2->x)|| (b->x == LARGURA-4 && b->y == p2->x-1) || (b->x == LARGURA-4 && b->y == p2->x+1))) {
+            leste(tela, b);
         }
         else {
-            if (p->y == p2->x-1 && p->x == p2->y-1) {
-                p->d=NOROESTE;
-                norte(tela, p);
-				oeste(tela, p);
-            } else if (p->y == p2->x-1 && p->x == p2->y+1){
-                p->d=SULDOESTE;
-                sul(tela, p);
-				oeste(tela, p);
-            } else if(p->y==LARGURA-2){
+            if (b->x == LARGURA-4 && b->y == p2->x-1) {
+                b->d=NOROESTE;
+                norte(tela, b);
+				oeste(tela, b);
+            } else if (b->x == LARGURA-4 && b->y == p2->x+1){
+                b->d=SULDOESTE;
+                sul(tela, b);
+				oeste(tela, b);
+            } else if(b->x==LARGURA-2){
                 *reinicia=2;
             } else  {
-                p->d = OESTE;
-				oeste(tela, p);
+                b->d = OESTE;
+				oeste(tela, b);
             }
             
         }
     }
-    else if (p->d == NORDESTE) {
-        if ( p->x > 2 && (p->y<LARGURA-2) &&!((p->y == p2->x-1 && p->x == p2->y)|| (p->y == p2->x-1 && p->x == p2->y-1) || (p->y == p2->x-1 && p->x == p2->y+1) || (p->y-1 == p2->x && p->x == p2->y))) {
-            leste(tela, p);
-            norte(tela, p);
+    else if (b->d == NORDESTE) {
+        if ( b->y > 2 && (b->x<LARGURA-2) &&!((b->x == LARGURA-4 && b->y == p2->x)|| (b->x == LARGURA-4 && b->y == p2->x-1) || (b->x == LARGURA-4 && b->y == p2->x+1) || (b->x-1 == p2->y && b->y == p2->x))) {
+            leste(tela, b);
+            norte(tela, b);
         }
         else {
-            if (p->y == p2->x-1 && p->x == p2->y-1) {
+            if (b->x == LARGURA-4 && b->y == p2->x-1) {
                 // Se igual a raquete superior faça...
-                p->d=NOROESTE;
-                norte(tela, p);
-                oeste(tela, p);
-            } else if (p->y == p2->x-1 && p->x == p2->y+1){
-                p->d=SULDOESTE;
-                sul(tela, p);
-                oeste(tela, p);
-            } else if(p->x == 2){
-                p->d=SULDESTE;
-                sul(tela, p);
-                leste(tela, p);
-            } else if(p->y==LARGURA-2){
+                b->d=NOROESTE;
+                norte(tela, b);
+                oeste(tela, b);
+            } else if (b->x == LARGURA-4 && b->y == p2->x+1){
+                b->d=SULDOESTE;
+                sul(tela, b);
+                oeste(tela, b);
+            } else if(b->y == 2){
+                b->d=SULDESTE;
+                sul(tela, b);
+                leste(tela, b);
+            } else if(b->x==LARGURA-2){
                 *reinicia=2;
             } else {
-                p->d = OESTE;
-                oeste(tela, p);
+                b->d = OESTE;
+                oeste(tela, b);
                 
             }
         }
     }
-	else if (p->d == NOROESTE) {
-		if (p->x > 2 && p->y>1 && !((p->y == p1->x+1 && p->x == p1->y) || (p->y == p1->x +1  && p->x == p1->y - 1) || (p->y == p1->x + 1 && p->x == p1->y + 1) || (p->y == p1->x+1 && p->x == p1->y))) {
-			norte(tela, p);
-			oeste(tela, p);
+	else if (b->d == NOROESTE) {
+		if (b->y > 2 && b->x>1 && !((b->x == 3 && b->y == p1->x) || (b->x == 3  && b->y == p1->x - 1) || (b->x == 3 && b->y == p1->x + 1) || (b->x == 3 && b->y == p1->x))) {
+			norte(tela, b);
+			oeste(tela, b);
 		}
 		else {
-		if (p->y == p1->x + 1 && p->x == p1->y - 1) {
-				p->d = NORDESTE;
-				norte(tela, p);
-				leste(tela, p);
-			} else if (p->y == p1->x + 1 && p->x == p1->y + 1) {
-				p->d = SULDESTE;
-				sul(tela, p);
-				leste(tela, p);
-			} else if (p->x == 2) {
-				p->d = SULDOESTE;
-				sul(tela, p);
-				oeste(tela, p);
-            } else if (p->y==1){
+		if (b->x == 3 && b->y == p1->x - 1) {
+				b->d = NORDESTE;
+				norte(tela, b);
+				leste(tela, b);
+			} else if (b->x == 3 && b->y == p1->x + 1) {
+				b->d = SULDESTE;
+				sul(tela, b);
+				leste(tela, b);
+			} else if (b->y == 2) {
+				b->d = SULDOESTE;
+				sul(tela, b);
+				oeste(tela, b);
+            } else if (b->x==1){
                 *reinicia=3;
             } else {
-				p->d = LESTE;
-				leste(tela, p);
+				b->d = LESTE;
+				leste(tela, b);
 			}
 		}
 	}
-	else if (p->d == SULDESTE) {
-		if (p->x < ALTURA - 2 && p->y<LARGURA-2 && !((p->y == p2->x-1 && p->x == p2->y) || (p->y == p2->x - 1 && p->x == p2->y - 1) || (p->y == p2->x - 1 && p->x == p2->y + 1) || (p->y == p2->x-1 && p->x == p2->y))) {
-			leste(tela, p);
-			sul(tela, p);
+	else if (b->d == SULDESTE) {
+		if (b->y < ALTURA - 2 && b->x<LARGURA-2 && !((b->x == LARGURA-4 && b->y == p2->x) || (b->x == LARGURA-4 && b->y == p2->x - 1) || (b->x == LARGURA-4 && b->y == p2->x + 1) || (b->x == p2->y-1 && b->y == p2->x))) {
+			leste(tela, b);
+			sul(tela, b);
 		}
 		else {
-			if (p->y == p2->x - 1 && p->x == p2->y - 1) {
-				p->d = NOROESTE;
-                norte(tela, p);
-				oeste(tela, p);
+			if (b->x == LARGURA-4 && b->y == p2->x - 1) {
+				b->d = NOROESTE;
+                norte(tela, b);
+				oeste(tela, b);
 			}
-			else if (p->y == p2->x - 1 && p->x == p2->y + 1) {
-				p->d = SULDOESTE;
-				sul(tela, p);
-				oeste(tela, p);
+			else if (b->x == LARGURA-4 && b->y == p2->x + 1) {
+				b->d = SULDOESTE;
+				sul(tela, b);
+				oeste(tela, b);
 			}
-			else if (p->x == ALTURA - 2) {
-				p->d = NORDESTE;
-				leste(tela, p);
-				norte(tela, p);
-            } else if (p->y==LARGURA-2) {
+			else if (b->y == ALTURA - 2) {
+				b->d = NORDESTE;
+				leste(tela, b);
+				norte(tela, b);
+            } else if (b->x==LARGURA-2) {
                 *reinicia=2;
             }
 			else {
-				p->d = OESTE;
-				oeste(tela, p);
+				b->d = OESTE;
+				oeste(tela, b);
 			}
 		}
 	}
-	else if (p->d == SULDOESTE) {
-		if (p->x < ALTURA - 2 && p->y>1 && !((p->y == p1-> x+1 && p->x == p1->y) || (p->y == p1->x + 1 && p->x == p1->y - 1) || (p->y == p1->x + 1 && p->x == p1->y + 1) || (p->y - 1 == p1->x && p->x == p1->y))){
-			sul(tela, p);
-			oeste(tela, p);
+	else if (b->d == SULDOESTE) {
+		if (b->y < ALTURA - 2 && b->x>1 && !((b->x == 3 && b->y == p1->x) || (b->x == 3 && b->y == p1->x - 1) || (b->x == 3 && b->y == p1->x + 1) || (b->x - 1 == p1->y && b->y == p1->x))){
+			sul(tela, b);
+			oeste(tela, b);
 		}
 		else {
-			if (p->y == p1->x + 1 && p->x == p1->y + 1) {
-				p->d = NORDESTE;
-				norte(tela, p);
-				leste(tela, p);
-			} else if (p->y == p1->x + 1 && p->x == p1->y - 1) {
-				p->d = SULDESTE;
-				sul(tela, p);
-				leste(tela, p);
-			} else if (p->x == ALTURA - 2) {
-				p->d = NOROESTE;
-				norte(tela, p);
-				oeste(tela, p);
-            }  else if (p->y==1){
+			if (b->x == 3 && b->y == p1->x - 1) {
+				b->d = NORDESTE;
+				norte(tela, b);
+				leste(tela, b);
+			} else if (b->x == 3 && b->y == p1->x + 1) {
+				b->d = SULDESTE;
+				sul(tela, b);
+				leste(tela, b);
+			} else if (b->y == ALTURA - 2) {
+				b->d = NOROESTE;
+				norte(tela, b);
+				oeste(tela, b);
+            }  else if (b->x==1){
                 *reinicia=3;
             }
 			else {
-				p->d = LESTE;
-				leste(tela, p);
+				b->d = LESTE;
+				leste(tela, b);
 			}
 		}
 	}
 
 }
 
-void rand_direction (Ponto* p){
+void rand_direction (Bola* p){
     srand(time(NULL));
     p->d=rand()%6+2;
 }
