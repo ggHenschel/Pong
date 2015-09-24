@@ -16,25 +16,32 @@
 #include <string.h>
 #include <stdio.h>
 #define BUFFSIZE 1023
-#define S(x) #x
-#define SX(x) S(x)
 
+//ESTÁ FUNCIONANDO NÃO MEXA
 
 void mac_som(char* path, char tela[ALTURA][LARGURA]){
-    char cwd[BUFFSIZE];
+    char cwd[BUFFSIZE],cwdf[BUFFSIZE];
     int bufsize = sizeof(cwd);
-    system("pwd");
+    int counter=0;
+    //system("pwd");
     _NSGetExecutablePath(cwd,&bufsize);
-    chdir(cwd);
-    strcat(cwd, path);
-    printf("%s\n",cwd);
-    printf("%s\n", S(cwd));         //Até aqui funciona tão bonito
-    pid_t pid = fork();
-    if (pid!=0)
-        printf("IMPOSSIBLE TO TREAD!");
+    while (cwd[counter]!='\0') {
+        counter+=1;
+    }
+    for (int i=0; i<counter-6; i++) {
+        cwdf[i]=cwd[i];
+    }
+    cwdf[counter-6]='\0';
+    //printf("%s\n",cwdf);
+    strcat(cwdf, path);
+    //printf("%s\n",cwdf);
+    //pid_t pid = vfork();
+    if (vfork()!=0){
+        //printf("IMPOSSIBLE TO TREAD!\n");
+    }
     else{
-        execlp("afplay","-d", cwd);
-        system("clear");
-        desenha(tela);
+        execlp("afplay","-d",(char *)cwdf, NULL);
+        _exit(EXIT_FAILURE);
+        
     }
 }

@@ -50,7 +50,8 @@ int main () {
         rand_direction(&b);
         limpa_tela();
         menuDesenha(menu);
-        som("/sounds/parede.wav");
+        //som("//sounds//parede.wav");
+        //som("/sounds/ponto.mp3");
         while (!(getch() == 13 || getch() == 10)){
             ;
         }
