@@ -119,6 +119,7 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
 				leste(tela, b);
             } else if(b->x == 1){
                 // Se igual a posição da parede faça...
+                som("//sounds//ponto.wav");
                 *reinicia=3;
                 } else {
                 // Em qualquer outro caso, mude a direção
@@ -147,6 +148,7 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
                 sul(tela, b);
 				oeste(tela, b);
             } else if(b->x==LARGURA-2){
+                som("//sounds//ponto.wav");
                 *reinicia=2;
             } else  {
                 som("//sounds//raquete.wav");
@@ -179,6 +181,7 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
                 sul(tela, b);
                 leste(tela, b);
             } else if(b->x==LARGURA-2){
+                som("//sounds//ponto.wav");
                 *reinicia=2;
             } else {
                 som("//sounds//raquete.wav");
@@ -210,6 +213,7 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
 				sul(tela, b);
 				oeste(tela, b);
             } else if (b->x==1){
+                som("//sounds//ponto.wav");
                 *reinicia=3;
             } else {
                 som("//sounds//raquete.wav");
@@ -242,6 +246,7 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
 				leste(tela, b);
 				norte(tela, b);
             } else if (b->x==LARGURA-2) {
+                som("//sounds//ponto.wav");
                 *reinicia=2;
             }
 			else {
@@ -273,6 +278,7 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
 				norte(tela, b);
 				oeste(tela, b);
             }  else if (b->x==1){
+                som("//sounds//ponto.wav");
                 *reinicia=3;
             }
 			else {
