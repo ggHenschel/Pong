@@ -24,9 +24,8 @@
 #define som(file) PlaySound(TEXT(SX(x)),NULL,SND_ASYNC)
 #else
 #include <unistd.h>
-#define S(x) #x
-#define SX(x) S(x)
-#define som(file) execlp("afplay","-d",SX(file),NULL)
+#include "mac_som.h"
+#define som(file) mac_som(file,tela)
 #endif
 
 void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n){

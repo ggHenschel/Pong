@@ -26,13 +26,12 @@
 #define getch _getch
 #define limpa_tela() COORD coord = {0, 0}; SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord)
 #define dorme(milis) Sleep(milis)
-#define som(file) PlaySound(TEXT("\""file"\""),NULL,SND_ASYNC)
 #else
 #include <unistd.h>
 #include "console.h"
 #define limpa_tela() system("clear")
 #define dorme(milis) usleep(milis * 1000)
-#define som(file) system("afplay "file"\"")
+#define som(file) mac_som(file,tela)
 #endif
 
 int main () {
@@ -51,6 +50,7 @@ int main () {
         rand_direction(&b);
         limpa_tela();
         menuDesenha(menu);
+        som("/sounds/parede.wav");
         while (!(getch() == 13 || getch() == 10)){
             ;
         }
