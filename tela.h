@@ -3,7 +3,7 @@
 #ifndef TELA_H
 #define TELA_H
 
-#define ALTURA 22
+#define ALTURA 23
 #define LARGURA 51
 
 #define PONTO 'o'
