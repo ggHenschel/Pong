@@ -12,6 +12,8 @@
 //
 // CURITIBA 2015
 
+#ifndef _WIN32
+
 #include "mac_som.h"
 #include <string.h>
 #include <stdio.h>
@@ -45,3 +47,5 @@ void mac_som(char* path, char tela[ALTURA][LARGURA]){
         
     }
 }
+
+#endif
