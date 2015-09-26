@@ -27,7 +27,9 @@
 #else
 #include <unistd.h>
 #include "mac_som.h"
-#define som(file) mac_som(file,tela)
+#define S(x) #x
+#define SX(x) S(x)
+#define som(file) mac_som(SX(file))
 #endif
 
 void inicializa_player(char tela[ALTURA][LARGURA], player* player,int n){
@@ -113,13 +115,13 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
                 // Se igual a raquete superior faça...
                 som(sounds\\raquete.wav);
                 b->d=NORDESTE;
-                mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+                mover_bola(tela, &b, &p1,&p2,&reinicia);
             }
             else if (b->x == 3 && b->y == p1->y+1){
                 // Se igual a raquete inferior faça...
                 som(sounds\\raquete.wav);
                 b->d=SULDESTE;
-                mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+                mover_bola(tela, &b, &p1,&p2,&reinicia);
             } else if(b->x == 2){
                 // Se igual a posição da parede faça...
                 som(sounds\\ponto.wav);
@@ -129,7 +131,7 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
                 // Só será chamada quando for igual a raquete média
                 som(sounds\\raquete.wav);
                 b->d = LESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
             }
             
             
@@ -143,18 +145,18 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
             if (b->x == LARGURA-4 && b->y == p2->y-1) {
                 som(sounds\\raquete.wav);
                 b->d=NOROESTE;
-                mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+                mover_bola(tela, &b, &p1,&p2,&reinicia);
             } else if (b->x == LARGURA-4 && b->y == p2->y+1){
                 som(sounds\\raquete.wav);
                 b->d=SULDOESTE;
-                mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+                mover_bola(tela, &b, &p1,&p2,&reinicia);
             } else if(b->x==LARGURA-3){
                 som(sounds\\ponto.wav);
                 *reinicia=2;
             } else  {
                 som(sounds\\raquete.wav);
                 b->d = OESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
             }
             
         }
@@ -169,22 +171,22 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
                 // Se igual a raquete superior faça...
                 som(sounds\\raquete.wav);
                 b->d=NOROESTE;
-                mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+                mover_bola(tela, &b, &p1,&p2,&reinicia);
             } else if (b->x == LARGURA-4 && b->y == p2->y+1){
                 som(sounds\\raquete.wav);	
                 b->d=SULDOESTE;
-                mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+                mover_bola(tela, &b, &p1,&p2,&reinicia);
             } else if(b->y == 2){
                 som(sounds\\parede.wav);
                 b->d=SULDESTE;
-                mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+                mover_bola(tela, &b, &p1,&p2,&reinicia);
             } else if(b->x==LARGURA-3){
                 som(sounds\\ponto.wav);
                 *reinicia=2;
             } else {
                 som(sounds\\raquete.wav);
                 b->d = OESTE;
-                mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+                mover_bola(tela, &b, &p1,&p2,&reinicia);
                 
             }
         }
@@ -198,21 +200,21 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
 		if (b->x == 3 && b->y == p1->y - 1) {
                 som(sounds\\raquete.wav);
 				b->d = NORDESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
 			} else if (b->x == 3 && b->y == p1->y + 1) {
                 som(sounds\\raquete.wav);
 				b->d = SULDESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);			} else if (b->y == 2) {
+				mover_bola(tela, &b, &p1,&p2,&reinicia);			} else if (b->y == 2) {
                 som(sounds\\parede.wav);
 				b->d = SULDOESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
             } else if (b->x==2){
                 som(sounds\\ponto.wav);
                 *reinicia=3;
             } else {
                 som(sounds\\raquete.wav);
 				b->d = LESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
 			}
 		}
 	}
@@ -225,17 +227,17 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
 			if (b->x == LARGURA-4 && b->y == p2->y - 1) {
                 som(sounds\\raquete.wav);
 				b->d = NOROESTE;
-                mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+                mover_bola(tela, &b, &p1,&p2,&reinicia);
 			}
 			else if (b->x == LARGURA-4 && b->y == p2->y + 1) {
                 som(sounds\\raquete.wav);
 				b->d = SULDOESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
 			}
 			else if (b->y == ALTURA - 2) {
                 som(sounds\\parede.wav);
 				b->d = NORDESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
             } else if (b->x==LARGURA-3) {
                 som(sounds\\ponto.wav);
                 *reinicia=2;
@@ -243,7 +245,7 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
 			else {
                 som(sounds\\raquete.wav);
 				b->d = OESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
 			}
 		}
 	}
@@ -256,15 +258,15 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
 			if (b->x == 3 && b->y == p1->y - 1) {
                 som(sounds\\raquete.wav);
 				b->d = NORDESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
 			} else if (b->x == 3 && b->y == p1->y + 1) {
                 som(sounds\\raquete.wav);
 				b->d = SULDESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
 			} else if (b->y == ALTURA - 2) {
                 som(sounds\\parede.wav);
 				b->d = NOROESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
             }  else if (b->x==2){
                 som(sounds\\ponto.wav);
                 *reinicia=3;
@@ -272,7 +274,7 @@ void mover_bola (char tela[ALTURA][LARGURA], Bola* b, player* p1, player* p2, in
 			else {
                 som(sounds\\raquete.wav);
 				b->d = LESTE;
-				mover_bola(tela[ALTURA][LARGURA], &b, &p1,&p2,&reinicia);
+				mover_bola(tela, &b, &p1,&p2,&reinicia);
 			}
 		}
 	}

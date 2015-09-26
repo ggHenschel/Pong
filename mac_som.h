@@ -17,6 +17,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "tela.h"
-void mac_som(char* path, char tela[ALTURA][LARGURA]);
+void mac_som(char* path);
 
 #endif /* mac_som_h */
