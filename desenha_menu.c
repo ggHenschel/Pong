@@ -14,8 +14,7 @@
 
 #include "desenha_menu.h"
 
-void menuInic(char telaInicial[ALTURA][LARGURA])
-{
+void menuStart(char telaInicial[ALTURA][LARGURA]){
 	int i, j, k = 0, l = 0;
 
 	for (i = 0; i < ALTURA; i++) {
@@ -30,7 +29,7 @@ void menuInic(char telaInicial[ALTURA][LARGURA])
 	}
 	for (i = 1; i < ALTURA - 1; i++) {
 		for (j = 0; j < LARGURA; j += (LARGURA - 1)) {
-			telaInicial[i][j] = PAREDE2;
+			telaInicial[i][j] = PAREDE_MENU;
 		}
 	}
 	for (i = ALTURA - 3; i < ALTURA - 1; i++) {
@@ -53,6 +52,58 @@ void menuInic(char telaInicial[ALTURA][LARGURA])
 			else if (i == 6 && j == 4) { for (k = 0, l++; PONG_LOGO[l] != '\n'; k++, l++) telaInicial[i][j + k] = PONG_LOGO[l]; j += k - 1; }
 			else if (i == 7 && j == 4) { for (k = 0, l++; PONG_LOGO[l] != '\n'; k++, l++) telaInicial[i][j + k] = PONG_LOGO[l]; j += k - 1; }
 		}
+}
+
+void menuInicial(char telaInicial[ALTURA][LARGURA]) {
+	int i, j, l=0, k=0;
+
+	for (i = 0; i < ALTURA; i++) {
+		for (j = 0; j < LARGURA; j++) {
+			telaInicial[i][j] = ESPACO;
+		}
+	}
+	for (i = 0; i < ALTURA; i += (ALTURA - 1)) {
+		for (j = 0; j < LARGURA; j++) {
+			telaInicial[i][j] = TETO_E_CHAO;
+		}
+	}
+	for (i = 1; i < ALTURA - 1; i++) {
+		for (j = 0; j < LARGURA; j += (LARGURA - 1)) {
+			telaInicial[i][j] = PAREDE_MENU;
+		}
+	}
+	// Desenha o ASCII art "Pong"
+	for (i = 0; i < ALTURA - 1; i++)
+		for (j = 0; j < LARGURA; j++)
+		{
+			if (i == 2 && j == 4) { for (l = 0, k = 0; PONG_LOGO[l] != '\n'; k++, l++) telaInicial[i][j + k] = PONG_LOGO[l]; j += k - 1; }
+			else if (i == 3 && j == 4) { for (k = 0, l++; PONG_LOGO[l] != '\n'; k++, l++) telaInicial[i][j + k] = PONG_LOGO[l]; j += k - 1; }
+			else if (i == 4 && j == 4) { for (k = 0, l++; PONG_LOGO[l] != '\n'; k++, l++) telaInicial[i][j + k] = PONG_LOGO[l]; j += k - 1; }
+			else if (i == 5 && j == 4) { for (k = 0, l++; PONG_LOGO[l] != '\n'; k++, l++) telaInicial[i][j + k] = PONG_LOGO[l]; j += k - 1; }
+			else if (i == 6 && j == 4) { for (k = 0, l++; PONG_LOGO[l] != '\n'; k++, l++) telaInicial[i][j + k] = PONG_LOGO[l]; j += k - 1; }
+			else if (i == 7 && j == 4) { for (k = 0, l++; PONG_LOGO[l] != '\n'; k++, l++) telaInicial[i][j + k] = PONG_LOGO[l]; j += k - 1; }
+		}
+	for (i = 0; i <= strlen(onePlayer); i++) {
+		telaInicial[ALTURA / 2 + 2][i + (LARGURA / 2 - strlen(onePlayer) / 2)] = onePlayer[i];
+	}
+	for (i = 0; i <= strlen(twoPlayer); i++) {
+		telaInicial[ALTURA / 2 + 3][i + (LARGURA / 2 - strlen(onePlayer) / 2)] = twoPlayer[i];
+	}
+}
+
+void menuVitoria(char telaInicial[ALTURA][LARGURA], int playerVit){
+	int i;
+
+	if (playerVit == 1) {
+		for (i = 0; i < 18; i++) {
+			telaInicial[ALTURA / 2][LARGURA / 3 + i] = "Player 1 Wins!!!"[i];
+		}
+	}
+	else {
+		for (i = 0; i < 18; i++) {
+			telaInicial[ALTURA / 2][LARGURA / 3 + i] = "Player 2 Wins!!!"[i];
+		}
+	}
 }
 
 void menuDesenha(char telaInicial[ALTURA][LARGURA]){
