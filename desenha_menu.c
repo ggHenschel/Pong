@@ -91,6 +91,21 @@ void menuInicial(char telaInicial[ALTURA][LARGURA]) {
 	}
 }
 
+void menuVitoria(char telaInicial[ALTURA][LARGURA], int playerVit){
+	int i;
+
+	if (playerVit == 1) {
+		for (i = 0; i < 18; i++) {
+			telaInicial[ALTURA / 2][LARGURA / 3 + i] = "Player 1 Wins!!!"[i];
+		}
+	}
+	else {
+		for (i = 0; i < 18; i++) {
+			telaInicial[ALTURA / 2][LARGURA / 3 + i] = "Player 2 Wins!!!"[i];
+		}
+	}
+}
+
 void menuDesenha(char telaInicial[ALTURA][LARGURA]){
 	int i, j;
 	for (i = 0; i < ALTURA; i++)

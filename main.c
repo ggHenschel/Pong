@@ -39,7 +39,6 @@ COORD coord = { 0, 0 };
 int main () {
     
     char tela[ALTURA][LARGURA];
-	char menu[ALTURA][LARGURA];
     int direcao, reinicia=1, ia=0, m_dir=1;
     Bola b;
     player player1, player2;
@@ -89,7 +88,13 @@ int main () {
                     break;
                 }
                 if (player2.score==10||player1.score==10) {
-                    reinicia=5;
+					menuVitoria(tela, player1.score > player2.score ? 1 : 2);
+					limpa_tela();
+					desenha(tela);
+					while (!getch()) {
+							;
+					}
+					reinicia = -1;
                     break;
                 }
                 
